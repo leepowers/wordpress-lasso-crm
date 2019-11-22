@@ -1,0 +1,18 @@
+# Ignore everything in the root except the "wp-content" directory.
+/*
+!LICENSE
+!.gitignore
+!wp-content/
+!README.md
+
+# Ignore everything in the "wp-content" directory, except the "plugins" and "themes" directories.
+wp-content/*
+!wp-content/plugins/
+
+# Ignore everything in the "plugins" directory, except custom plugins
+wp-content/plugins/*
+!wp-content/plugins/lassocrm
+
+# Ignore DS_Store in all directories
+.DS_Store
+
