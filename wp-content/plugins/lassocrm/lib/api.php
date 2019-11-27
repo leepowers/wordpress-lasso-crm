@@ -38,7 +38,7 @@ class lassocrm_api {
         // Headers
         $headers = array(
             'Content-Type: application/json',
-            'X-Lasso-Auth: Token='. LASSOCRM_API_KEY . ',Version=1.0',
+            'X-Lasso-Auth: Token='. LASSOCRM_API_UID . ',Version=1.0',
         );
         if ($debug) {
             lassocrm_dump("Headers: ", $headers);
