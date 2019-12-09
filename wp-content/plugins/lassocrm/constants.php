@@ -11,6 +11,7 @@ if (!defined("LASSOCRM_API_URL")) {
 	 * @var string
 	 */
 	define("LASSOCRM_API_URL", "https://api.lassocrm.com/registrants");
+	#define("LASSOCRM_API_URL", "https://app.lassocrm.com/registrant_signup/test");
 }
 
 if (!defined("LASSOCRM_API_KEY")) {
