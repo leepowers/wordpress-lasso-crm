@@ -36,9 +36,16 @@ class lassocrm_api {
             $post_fields["guid"] = $guid;
         }
         // Headers
+        $uid = "";
+        if (function_exists("get_field")) {
+            $uid = get_field("wc_lasso_uid", "option");
+        }
+        if (empty($uid)) {
+            $uid = LASSOCRM_API_UID;
+        }
         $headers = array(
             'Content-Type: application/json',
-            'X-Lasso-Auth: Token='. LASSOCRM_API_UID . ',Version=1.0',
+            'X-Lasso-Auth: Token='. $uid . ',Version=1.0',
         );
         if ($debug) {
             lassocrm_dump("Headers: ", $headers);
@@ -56,12 +63,18 @@ class lassocrm_api {
         curl_setopt($curl, CURLOPT_POSTFIELDS, $json_post);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, 25);
         $curl_result = curl_exec($curl);
         $http_status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
         if ($debug) {
             lassocrm_dump($curl_result);
             lassocrm_dump(curl_getinfo($curl));
             lassocrm_dump("HTTP response code: $http_status");
+        }
+        if ($http_status && array_slice($http_status, 0, 1) == 2) {
+            return true;
+        } else {
+            return "Lasso bad response code - '$http_status' - " . array_slice($http_status, 0, 1);
         }
     }
 
