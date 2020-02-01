@@ -16,7 +16,7 @@ class lassocrm_api {
     }
 
     static public function submit_lead(lassocrm_lead $lead, $debug = false) {
-        self::get_instance()->send_request($lead->toArray(), $debug);
+        return self::get_instance()->send_request($lead->toArray(), $debug);
     }
 
     public function send_request(array $post_fields, $debug = false) {
@@ -71,10 +71,10 @@ class lassocrm_api {
             lassocrm_dump(curl_getinfo($curl));
             lassocrm_dump("HTTP response code: $http_status");
         }
-        if ($http_status && array_slice($http_status, 0, 1) == 2) {
+        if ($http_status && substr($http_status, 0, 1) == 2) {
             return true;
         } else {
-            return "Lasso bad response code - '$http_status' - " . array_slice($http_status, 0, 1);
+            return "Lasso bad response code - '$http_status' - " . substr($http_status, 0, 1);
         }
     }
 
